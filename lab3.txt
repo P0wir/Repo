@@ -1,0 +1,24 @@
+CREATE TABLE postac (id_postaci INT NOT NULL AUTO_INCREMENT PRIMARY KEY, nazwa varchar(40) NOT NULL, rodzaj ENUM('wiking','ptak','kobieta'), data_ur DATE, wiek TINYINT);
+Insert into postac (nazwa,rodzaj,data_ur,wiek) VALUES ('Bjorn','wiking','1330-12-24',35);
+Insert into postac (nazwa,rodzaj,data_ur,wiek) VALUES ('drozd','ptak','1360-12-24',5);
+Insert into postac (nazwa,rodzaj,data_ur,wiek) VALUES ('Tesciowa','kobieta','1277-12-24','86');
+Update postac set wiek = 88 where nazwa = 'tesciowa';
+CREATE TABLE walizka (id_walizki INT NOT NULL AUTO INCREMENT PRIMARY KEY, pojemnosc INT, kolor ENUM('rozowy','czerwony','teczowy','zolty'), id_wlascicela INT, FOREIGN KEY (id_wlasciciela) references postac (id_postaci) on delete cascade);
+ALTER TABLE walizka ALTER kolor SET DEFAULT 'rozowy';
+INSERT INTO WALIZKA (pojemnosc,kolor,id_wlasciciela) VALUES (50,'czerwony','1);
+INSERT INTO WALIZKA (pojemnosc,kolor,id_wlasciciela) VALUES (65,'rozowy','2);
+CREATE TABLE izba (adres_budynku varchar(100) NOT NULL, nazwa_izby varchar(100) NOT NULL, metraz INT, PRIMARY KEY(adres_budynku,nazwa_izby), wlasciciel INT, FOREIGN KEY (wlasciciel) REFERENCES postac(id_postaci)) NULL;
+ALTER TABLE izba ADD COLUMN kolor varchar(100) After metraz;
+ALTER TABLE izba ALTER KOLOR set DEFAULT 'czarny';
+INSERT INTO izba VALUES ('Islandia 27','spizarnia',100,'czarny', NULL');
+CREATE TABLE przetwory (id_przetworu INT NOT NULL AUTO_INCREMENT PRIMARY KEY, rok_produkcji YEAR, id_wykonawcy INT, FOREIGN KEY (id_wykonawcy) references postac(id_postaci), zawartosc varchar(40), dodatek varchar(40) default 'papryczka chilli', id konsumenta INT, FOREIGN KEY (id_konsumenta) references postac (id_postaci));
+INSERT INTO przetwory VALUES (1,6,1,'bigos','papryczka chilli',2);
+INSERT INTO POSTAC (nazwa, rodzaj, data_ur, wiek) VALUES
+('Thorr','wiking','1330-11-24',35),
+('Wigfrid','wiking','1330-10-24',35),
+('Zbyszek','wiking','1330-9-24',35),
+('KRzysiek','wiking','1330-8-24',35);
+CREATE TABLE statek (nazwa_statku varchar(50) NOT NULL PRIMARY KEY, rodzaj_statku ENUM('handlowy','bitewny','transportowy'), data_wodowania DATE, max_ladownosc INT);
+INSERT INTO statek VALUES ('Ucieczka,'bitewny','1366-12-20',2137), ('Transport,'transportowy','1355-12-25',21371);
+ALTER TABLE postac ADD COLUMN funkcja varchar(40);
+UPDATE postac set funkcja 'kapitan' WHERE id_postaci=1;
