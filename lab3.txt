@@ -22,3 +22,9 @@ CREATE TABLE statek (nazwa_statku varchar(50) NOT NULL PRIMARY KEY, rodzaj_statk
 INSERT INTO statek VALUES ('Ucieczka,'bitewny','1366-12-20',2137), ('Transport,'transportowy','1355-12-25',21371);
 ALTER TABLE postac ADD COLUMN funkcja varchar(40);
 UPDATE postac set funkcja 'kapitan' WHERE id_postaci=1;
+alter table postac add column statek varchar(20);
+alter table postac add foreign key(statek) references statek(nazwa_statku);
+update postac set statek="esmeralda" where id_postaci=1 or id_postaci between 4 and 6;
+update postac set statek="orze" where id_postaci =2 or id_postaci between 7 and 8;
+delete from izba where wlasciciel=1;
+drop table izba;
