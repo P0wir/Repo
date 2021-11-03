@@ -1,0 +1,10 @@
+DELETE FROM postac WHERE id_postaci = 6 or id_postaci = 7;
+ALter table walizka drop constraint walizka_ibfk_1;
+ALter table izba drop constraint izba_ibfk_1;
+ALter table przetwory drop constraint przetwory_ibfk_1;
+ALter table przetwory drop constraint przetwory_ibfk_2;
+ALTER TABLE postac MODIFY id_postaci int;
+ALTER TABLE postac add pesel char(11) first;
+ALTER TABLE postac MODIFY PESEL char(11) NOT NULL;
+ALTER TABLE postac ADD PRIMARY KEY (pesel);
+ALTER TABLE postac MODIFY rodzaj enum ('wiking','ptak','kobieta','syrena','waz');
