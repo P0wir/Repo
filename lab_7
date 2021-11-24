@@ -1,0 +1,8 @@
+select kreatura.nazwa from kreatura left join uczestnicy on kreatura.idKreatury=uczestnicy.id_uczestnika left join wyprawa on wyprawa.id_wyprawy=uczestnicy.id_wyprawy where wyprawa.nazwa is null;
+
+select wyprawa.nazwa, SUM(ekwipunek.ilosc) from kreatura 
+inner join uczestnicy on kreatura.idKreatury=uczestnicy.id_uczestnika 
+inner join wyprawa on wyprawa.id_wyprawy=uczestnicy.id_wyprawy
+ inner join ekwipunek on ekwipunek.idKreatury=kreatura.idKreatury 
+inner join zasob on ekwipunek.idZasobu=zasob.idZasobu
+group by wyprawa.nazwa;
