@@ -1,0 +1,16 @@
+Select nazwa, AVG(waga) from kreatura where rodzaj="wiking";
+Select rodzaj, AVG(waga), count(idKreatury) as ilosc from kreatura group by rodzaj;
+select rodzaj, avg(year('1700-11-17')-year(dataUr)) from kreatura group by rodzaj;
+select rodzaj, sum(waga) from zasob group by rodzaj;
+select rodzaj, avg(waga) from zasob where ilosc >= 4  group by nazwa having sum(waga) > 10;
+select rodzaj, count(distinct nazwa) from zasob group by rodzaj having sum(ilosc) > 1;
+select nazwa, sum(ilosc) from kreatura inner join ekwipunek on kreatura.idKreatury=ekwipunek.idKreatury group by nazwa;
+select kreatura.nazwa, zasob.nazwa from kreatura inner join ekwipunek on kreatura.idKreatury=ekwipunek.idKreatury inner join zasob on zasob.idZasobu=ekwipunek.idZasobu;
+select nazwa from kreatura LEFT JOIN ekwipunek on kreatura.idKreatury=ekwipunek.idKreatury where ekwipunek.idEkwipunku is null;
+select kreatura.nazwa, zasob.nazwa from kreatura inner join ekwipunek on kreatura.idKreatury=ekwipunek.idKreatury inner join zasob on zasob.idZasobu=ekwipunek.idZasobu where kreatura.rodzaj = "wiking";
+select kreatura.nazwa, zasob.nazwa from kreatura inner join ekwipunek on kreatura.idKreatury=ekwipunek.idKreatury inner join zasob on zasob.idZasobu=ekwipunek.idEkwipunku where kreatura.rodzaj='wiking' and year(kreatura.dataUr) between 1670 and 1679;
+select distinct kreatura.nazwa,kreatura.dataUr from kreatura inner join ekwipunek on kreatura.idKreatury=ekwipunek.idKreatury inner join zasob on zasob.idZasobu=ekwipunek.idEkwipunku where ekwipunek.idEkwipunku is not null order by kreatura.dataUr desc LIMIT 5;
+select kreatura.rodzaj, sum(ekwipunek.ilosc), AVG(zasob.waga) from kreatura inner join ekwipunek on kreatura.idKreatury=ekwipunek.idKreatury inner join zasob on zasob.idZasobu=ekwipunek.idZasobu where  kreatura.rodzaj NOT IN('waz','malpa') group by kreatura.rodzaj having sum(ekwipunek.ilosc) < 30;
+
+
+
