@@ -1,0 +1,28 @@
+select kreatura.nazwa from kreatura left join uczestnicy on kreatura.idKreatury=uczestnicy.id_uczestnika left join wyprawa on wyprawa.id_wyprawy=uczestnicy.id_wyprawy where wyprawa.nazwa is null;
+
+select wyprawa.nazwa, SUM(ekwipunek.ilosc) from kreatura 
+inner join uczestnicy on kreatura.idKreatury=uczestnicy.id_uczestnika 
+inner join wyprawa on wyprawa.id_wyprawy=uczestnicy.id_wyprawy
+ inner join ekwipunek on ekwipunek.idKreatury=kreatura.idKreatury 
+inner join zasob on ekwipunek.idZasobu=zasob.idZasobu
+group by wyprawa.nazwa;
+
+select wyprawa.nazwa, count(uczestnicy.id_uczestnika), group_concat(kreatura.nazwa) from wyprawa inner join uczestnicy on wyprawa.id_wyprawy=uczestnicy.id_wyprawy inner join kreatura on kreatura.idKreatury=uczestnicy.id_uczestnika group by wyprawa.nazwa
+
+select etapy_wyprawy.kolejnosc,wyprawa.nazwa as nazwa_wyprawy, wyprawa.data_rozpoczecia, sektor.nazwa, kreatura.nazwa as kierownik from wyprawa inner join etapy_wyprawy on 
+
+wyprawa.id_wyprawy=etapy_wyprawy.idWyprawy inner join sektor on etapy_wyprawy.sektor=sektor.id_sektora inner join kreatura on 
+
+wyprawa.kierownik = kreatura.idKreatury order by wyprawa.data_rozpoczecia, etapy_wyprawy.kolejnosc;
+
+3.
+select sektor.nazwa, count(etapy_wyprawy.sektor) from sektor
+left join etapy_wyprawy on etapy_wyprawy.sektor=sektor.id_sektora
+group by nazwa with rollup;
+
+2. 1 sposob : select  distinct IF(count(uczestnicy.id_uczestnika) = 0, "nie bral udzialu", 'bral udzial'), kreatura.nazwa from kreatura
+left join uczestnicy on uczestnicy.id_uczestnika= kreatura.idKreatury
+ group by kreatura.nazwa;
+2 sposob : select  distinct IF(uczestnicy.id_uczestnika is NULL, "nie bral udzialu", 'bral udzial'), kreatura.nazwa from kreatura
+left join uczestnicy on uczestnicy.id_uczestnika= kreatura.idKreatury
+ order by kreatura.nazwa;
