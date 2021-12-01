@@ -26,3 +26,8 @@ left join uczestnicy on uczestnicy.id_uczestnika= kreatura.idKreatury
 2 sposob : select  distinct IF(uczestnicy.id_uczestnika is NULL, "nie bral udzialu", 'bral udzial'), kreatura.nazwa from kreatura
 left join uczestnicy on uczestnicy.id_uczestnika= kreatura.idKreatury
  order by kreatura.nazwa;
+
+
+select idWyprawy, SUM(length(dziennik)) from etapy_wyprawy
+group by idWyprawy
+having SUM(length(dziennik)) < 400;
