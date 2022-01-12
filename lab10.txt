@@ -1,0 +1,18 @@
+select nazwa, min(pensja), max(pensja), avg(pensja) from dzial d inner join pracownik p on p.dzial = d.id_dzialu group by d.nazwa;
+select k.pelna_nazwa, SUM(p.cena*p.ilosc) from klient k inner join zamowienie z on k.id_klienta = z.klient inner join pozycja_zamowienia p on p.zamowienie = z.id_zamowienia group by z.id_zamowienia order by SUM(p.cena*p.ilosc) desc LIMIT 10;
+select SUM(p.ilosc*p.cena) as przychod ,YEAR(z.data_zamowienia) as rok from pozycja_zamowienia p inner join zamowienie z on z.id_zamowienia=p.zamowienie group by YEAR(z.data_zamowienia) order by przychod desc;
+select SUM(p.cena*p.ilosc) as wartosc_anulowanych_zamowien from pozycja_zamowienia p inner join zamowienie z on p.zamowienie=z.id_zamowienia where z.status_zamowienia = 6;
+select miejscowosc, SUM(p.cena*p.ilosc) as wartosc, count(z.id_zamowienia) as liczba_zamowien from adres_klienta a
+inner join klient k on a.klient=k.id_klienta
+inner join zamowienie z on k.id_klienta=z.klient
+inner join pozycja_zamowienia p on z.id_zamowienia=p.zamowienie
+inner join typ_adresu t on t.id_typu=a.typ_adresu
+where t.id_typu=1
+group by miejscowosc;
+select SUM((p.cena-t.cena_zakupu)*p.ilosc) as dotychczasowy_dochod from pozycja_zamowienia p inner join zamowienie z on p.zamowienie=z.id_zamowienia inner join towar t on p.towar=t.id_towaru where z.status_zamowienia = 5;
+select SUM((p.cena-t.cena_zakupu)*p.ilosc), YEAR(z.data_zamowienia) as dotychczasowy_dochod from pozycja_zamowienia p inner join zamowienie z on p.zamowienie=z.id_zamowienia inner join towar t on p.towar=t.id_towaru where z.status_zamowienia = 5 group by YEAR(z.data_zamowienia);
+select k.nazwa_kategori, SUM(sm.ilosc*t.cena_zakupu) as wartosc from stan_magazynowy sm inner join towar t on t.id_towaru = sm.towar inner join kategoria k on k.id_kategori=t.kategoria group by k.id_kategori;
+select Monthname(data_urodzenia) as miesiac, Count(id_pracownika) as Liczba_pracownikow from pracownik p group by Monthname(data_urodzenia), month(data_urodzenia) order by month(data_urodzenia);
+select p.imie, p.nazwisko, PERIOD_DIFF(date_format(curdate(), '%Y%m'),date_format(p.data_zatrudnienia, '%Y%m'))*pensja as koszt from pracownik p;
+
+
