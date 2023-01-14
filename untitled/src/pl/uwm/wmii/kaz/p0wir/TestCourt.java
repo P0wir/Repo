@@ -31,7 +31,8 @@ public class TestCourt {
         Stadium s1 = new Stadium(50, 120, "siema", 1999, "Sloneczny stadion", "nwm", 15000);
         System.out.println("----------");
         System.out.println(s1);
-
+        Stadium s2 = new Stadium(50, 120, "siema", 1999, "Sloneczny stadion", "nwm", 15000);
+        System.out.println(s1.equals(s2));
 
 
     }

@@ -1,5 +1,7 @@
 package pl.uwm.wmii.kaz.p0wir;
 
+import java.util.Objects;
+
 public class Stadium extends Court{
 
     public Stadium(double width, double length, String address, int year_built, String name, String common_name, int capacity) {
@@ -62,6 +64,15 @@ public class Stadium extends Court{
             return super.toString()+" Nazwa: "+this.name+".\n" +"Nazwa zwyczajowa: "+this.common_name+".\n"+
                     "Pojemność stadionu: "+this.capacity+" osób.\n";
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Stadium stadium = (Stadium) o;
+        return this.area() == stadium.area();
     }
 
     private String name;
